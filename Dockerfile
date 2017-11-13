@@ -7,10 +7,17 @@ FROM jenkinsci/jenkins:2.89
 # buildpack-deps:stretch-curl -> https://github.com/docker-library/buildpack-deps/blob/master/stretch/curl/Dockerfile
 # debian:stretch
 
+LABEL MAINTAINER="Eric Bronnimann <webmaster@bronnimann.com>"
+
+# Set the Jenkins SSH port, default to 2022
+ARG sshd_port=2022
+
+EXPOSE ${sshd_port}
+
 # Install lastest Docker for Debian
 # https://docs.docker.com/engine/installation/linux/docker-ce/debian/
 USER root
-# The docker goup id might be different on the
+# The docker goup id might be different on the host
 ARG docker_group=docker_host
 ARG docker_gid=992
 RUN apt-get update && \
